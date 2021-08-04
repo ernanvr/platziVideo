@@ -1,0 +1,35 @@
+.search {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 75px;
+	height: 100px;
+}
+
+.search__title {
+	color: #f7f7ee;
+	font-size: 25px;
+	margin-bottom: 10px;
+}
+
+.input {
+	background: rgba(255, 255, 255, 0.1);
+	border: 2px solid white;
+	border-radius: 25px;
+	color: #f7f7ee;
+	font-family: 'Muli', sans-serif;
+	font-size: 1.6rem;
+	height: 50px;
+	padding: 0 20px;
+	width: 50%;
+	outline: none;
+}
+
+.input:hover {
+	border: 2px solide gray;
+}
+
+::placeholder {
+	color: #f7f7ee;
+}

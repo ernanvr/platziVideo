@@ -1,0 +1,19 @@
+.footer {
+	display: flex;
+	align-items: center;
+	max-width: 100%;
+}
+
+.footer a {
+	color: white;
+	cursor: pointer;
+	font-size: 1.2rem;
+	font-family: 'Muli', sans-serif;
+	padding-left: 15px;
+	text-decoration: none;
+	margin: 10px;
+}
+
+.footer a:hover {
+	text-decoration: underline;
+}

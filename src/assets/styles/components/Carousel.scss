@@ -15,3 +15,16 @@
 	z-index: 0;
 	position: relative;
 }
+
+::-webkit-scrollbar {
+	width: 1em;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: transparent;
+	outline: none;
+}

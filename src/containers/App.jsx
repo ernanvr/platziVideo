@@ -5,20 +5,27 @@ import CarouselItem from '../components/CarouselItem';
 import Header from '../components/Header';
 import Search from '../components/Search';
 import Footer from '../components/Footer';
-import { APIPopular, APITopRated } from '../utils/Vars';
+import { APIPopular, APITopRated, IMGPathBase } from '../utils/Vars';
 import '../assets/styles/style.scss';
 
 const App = () => {
   const [results, updateFetchStat] = useState({
     fetching: true,
-    results: [],
+    popularMovies: [],
+    topMovies: [],
   });
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const response = await fetch(APIPopular);
-      const data = await response.json();
-      updateFetchStat({ fetching: false, results: data.results });
+      async function fetcher(url) {
+        const response = await fetch(url);
+        return response.json();
+      }
+
+      const data = [];
+      data[0] = await fetcher(APIPopular);
+      data[1] = await fetcher(APITopRated);
+      updateFetchStat({ fetching: false, popularMovies: data[0].results, topMovies: data[1].results });
     };
     fetchAPI();
   }, []);
@@ -31,11 +38,36 @@ const App = () => {
         <Carousel>
           {
             results.fetching ? <div>wait</div> :
-              results.results.map((item) => <CarouselItem key={item.id} title={item.title} />)
+              results.popularMovies.map(
+                (item) => (
+                  <CarouselItem
+                    key={item.id}
+                    title={item.title}
+                    releasedDate={item.release_date}
+                    posterPath={IMGPathBase + item.poster_path}
+                  />
+                ),
+              )
           }
         </Carousel>
       </Category>
-      <Category category='Más valoradas' />
+      <Category category='Más Populares'>
+        <Carousel>
+          {
+            results.fetching ? <div>wait</div> :
+              results.topMovies.map(
+                (item) => (
+                  <CarouselItem
+                    key={item.id}
+                    title={item.title}
+                    releasedDate={item.release_date}
+                    posterPath={IMGPathBase + item.poster_path}
+                  />
+                ),
+              )
+          }
+        </Carousel>
+      </Category>
       <Footer />
     </div>
   );

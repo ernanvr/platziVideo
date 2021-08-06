@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
@@ -37,6 +38,7 @@ module.exports = {
           },
         ],
       },
+
       {
         test: /\.s[ac]ss$/i,
         use: [
@@ -46,6 +48,15 @@ module.exports = {
           'sass-loader',
         ],
       },
+
+      {
+        test: /\.png$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/images/[hash].[ext]',
+        },
+      },
+
     ],
   },
 
@@ -58,5 +69,6 @@ module.exports = {
       filename: '[name].css',
     }),
     new Dotenv(),
+    new CleanWebpackPlugin(),
   ],
 };

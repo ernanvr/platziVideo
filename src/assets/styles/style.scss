@@ -1,4 +1,4 @@
-$primaryBackground: #8f57fd;
+@import './Vars.scss';
 
 * {
 	box-sizing: border-box;
@@ -8,7 +8,7 @@ $primaryBackground: #8f57fd;
 
 html {
 	font-size: 62.5%;
-	font-family: 'Mulish', sans-serif;
+	font-family: $theme-font;
 }
 
 body {

@@ -51,7 +51,7 @@ const App = () => {
           }
         </Carousel>
       </Category>
-      <Category category='Más Populares'>
+      <Category category='Más Valoradas'>
         <Carousel>
           {
             results.fetching ? <div>wait</div> :

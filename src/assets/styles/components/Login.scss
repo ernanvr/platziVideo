@@ -1,0 +1,156 @@
+.login {
+  background: linear-gradient(#21c08b, #ab88ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  width: 100%;
+}
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
+  border-radius: 40px;
+  color: white;
+  padding: 50px 68px 40px;
+  width: 90%;
+  height: 100%;
+  max-width: 450px;
+}
+
+.login__container--form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__container--form label {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.login__container--remember-me {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.login__container--remember-me > a {
+  color: white;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.login__container--remember-me label span {
+  color: #e1f1dd;
+  font-size: 1.2rem;
+}
+
+.login__container--remember-me > a:hover {
+  text-decoration: underline;
+}
+
+.login__container--social-media {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.login__container--social-media > div {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.login__container--social-media a {
+  text-decoration: none;
+  color: white;
+}
+
+.login__container--social-media > div:hover {
+  text-decoration: underline;
+}
+
+.login__container--social-media img {
+  height: 25px;
+  margin-right: 10px;
+}
+
+.login__container--register {
+  font-size: 1.4rem;
+}
+
+.login__container--register a {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login__container--register a:hover {
+  text-decoration: underline;
+}
+
+.input {
+  background-color: transparent;
+  color: white;
+  border-radius: 3px;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 2px solid white;
+  font-family: "Muli" sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  outline: none;
+  height: 40px;
+}
+
+.input:focus {
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+::placeholder {
+  color: white;
+}
+
+.button {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: bold;
+  font-family: "Muli", sans-serif;
+  height: 50px;
+  letter-spacing: 1px;
+  border: none;
+  margin: 10px 0;
+}
+
+.button:hover {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.4) 25%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  color: black;
+}
+
+.button:focus {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid white;
+}
+
+.button::selection {
+  outline: none;
+}

@@ -1,44 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Category from '../components/Category';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
-import Header from '../components/Header';
 import Search from '../components/Search';
-import Footer from '../components/Footer';
 import { APIPopular, APITopRated, IMGPathBase } from '../utils/Vars';
+import fetchVideos from '../hooks/fetchVideosInfo';
 import '../assets/styles/style.scss';
 
-const App = () => {
-  const [results, updateFetchStat] = useState({
-    fetching: true,
-    popularMovies: [],
-    topMovies: [],
-  });
+const Home = () => {
 
-  useEffect(() => {
-    const fetchAPI = async () => {
-      async function fetcher(url) {
-        const response = await fetch(url);
-        return response.json();
-      }
-
-      const data = [];
-      data[0] = await fetcher(APIPopular);
-      data[1] = await fetcher(APITopRated);
-      updateFetchStat({ fetching: false, popularMovies: data[0].results, topMovies: data[1].results });
-    };
-    fetchAPI();
-  }, []);
+  const fetchedVideos = fetchVideos(APIPopular, APITopRated);
 
   return (
-    <div className='App'>
-      <Header />
+    <>
       <Search />
       <Category category='Populares'>
         <Carousel>
           {
-            results.fetching ? <div>wait</div> :
-              results.popularMovies.map(
+            fetchedVideos.fetching ? <div>Loading</div> :
+              fetchedVideos.popularMovies.map(
                 (item) => (
                   <CarouselItem
                     key={item.id}
@@ -54,8 +34,8 @@ const App = () => {
       <Category category='Más Valoradas'>
         <Carousel>
           {
-            results.fetching ? <div>wait</div> :
-              results.topMovies.map(
+            fetchedVideos.fetching ? <div>Loading</div> :
+              fetchedVideos.topMovies.map(
                 (item) => (
                   <CarouselItem
                     key={item.id}
@@ -68,9 +48,8 @@ const App = () => {
           }
         </Carousel>
       </Category>
-      <Footer />
-    </div>
+    </>
   );
 };
 
-export default App;
+export default Home;

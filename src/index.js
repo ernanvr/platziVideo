@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from './reducers/index';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import reduxThunk from 'redux-thunk';
+import reducers from './reducers';
 import App from './routes/App';
 
-const initialState = {
-  'user': {},
-  'playing': {},
-  'myList': {},
-  'populars': {},
-  'topMovies': {},
-};
-
-const store = createStore(reducer, initialState);
+const store = createStore(combineReducers({
+  reducers,
+}), {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>

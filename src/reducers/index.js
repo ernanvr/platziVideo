@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import chargeData from './chargeData';
+import setFavorite from './setFavorite';
 
-export default combineReducers({
-  chargeData,
-});
+const combined = combineReducers({ chargeData, setFavorite });
+
+export default combined;

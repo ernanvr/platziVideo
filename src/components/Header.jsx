@@ -24,7 +24,7 @@ const Header = () => (
           <a href='/'>Cuenta</a>
         </li>
         <Link to='/login'>
-          <a href='/'>Iniciar sesión</a>
+          Iniciar sesión
         </Link>
       </ul>
     </div>

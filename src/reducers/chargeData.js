@@ -1,11 +1,16 @@
-function chargeData(state, action) {
+const INITIAL_STATE = {
+  popularMovies: [],
+  topMovies: [],
+};
+
+function chargeData(state = INITIAL_STATE, action) {
 
   switch (action.type) {
     case 'CHARGE_DATA':
       return {
         ...state,
-        populars: popularMovies,
-        topMovies,
+        popularMovies: action.payload.popularMovies,
+        topMovies: action.payload.topMovies,
       };
 
     default:

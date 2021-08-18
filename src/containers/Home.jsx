@@ -6,6 +6,8 @@ import CarouselItem from '../components/CarouselItem';
 import Search from '../components/Search';
 import homeActions from '../actions/fetchData';
 import { IMGPathBase } from '../utils/Vars'; import '../assets/styles/style.scss';
+import removeIcon from '../assets/static/remove-icon.png';
+import plusIcon from '../assets/static/plus-icon.png';
 
 class Home extends Component {
 
@@ -16,49 +18,77 @@ class Home extends Component {
 
   pushData(typeMovieToShow) {
 
-    const { popularMovies, topMovies } = this.props;
+    const { popularMovies, topMovies, myList } = this.props;
 
     if (typeMovieToShow === 'popularMovies') {
       return (
         popularMovies.map(
-          (item) => (
-            <CarouselItem
-              key={item.id}
-              title={item.title}
-              releasedDate={item.release_date}
-              posterPath={IMGPathBase + item.poster_path}
-            />
-          ),
+          (item) => {
+            return (
+              <CarouselItem
+                id={item.id}
+                key={item.id}
+                title={item.title}
+                releasedDate={item.release_date}
+                posterPath={IMGPathBase + item.poster_path}
+                plusMinorIcon={plusIcon}
+                remove={false}
+              />
+            );
+          },
         )
       );
+
     } if (typeMovieToShow === 'topRatedMovies') {
       return (
         topMovies.map(
           (item) => (
             <CarouselItem
+              id={item.id}
               key={item.id}
               title={item.title}
               releasedDate={item.release_date}
               posterPath={IMGPathBase + item.poster_path}
+              plusMinorIcon={plusIcon}
+              remove={false}
             />
           ),
         )
       );
 
+    } if (typeMovieToShow === 'myList') {
+      return (
+        myList.map(
+          (item) => (
+            <CarouselItem
+              id={item.id}
+              key={item.id}
+              title={item.title}
+              releasedDate={item.releasedDate}
+              posterPath={IMGPathBase + item.posterPath}
+              plusMinorIcon={removeIcon}
+              remove={true}
+            />
+          ),
+        )
+      );
     }
 
     return '';
   }
 
   render() {
+    const { myList } = this.props;
     return (
       <>
         <Search />
-        <Category category='Mi lista'>
-          <Carousel>
-            { this.pushData('myList')}
-          </Carousel>
-        </Category>
+        {myList.length > 0 && (
+          <Category category='Mi lista'>
+            <Carousel>
+              { this.pushData('myList')}
+            </Carousel>
+          </Category>
+        )}
         <Category category='Populares'>
           <Carousel>
             { this.pushData('popularMovies')}
@@ -78,7 +108,7 @@ const mapStateToProps = (state) => {
   return {
     popularMovies: state.reducers.chargeData.popularMovies,
     topMovies: state.reducers.chargeData.topMovies,
-    myList: state.myList,
+    myList: state.reducers.setFavorite.myList,
   };
 };
 

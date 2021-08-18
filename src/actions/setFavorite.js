@@ -1,6 +1,8 @@
-const setFavorite = (payload) => ({
-  type: 'SET_FAVORITE',
-  payload,
-});
+const setFavorite = (payload) => {
+  return ({
+    type: 'SET_FAVORITE',
+    payload,
+  });
+};
 
 export default setFavorite;

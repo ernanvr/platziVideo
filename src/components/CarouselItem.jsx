@@ -2,19 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import setFavorite from '../actions/setFavorite';
+import deleteFavorite from '../actions/deleteFavorite';
 import '../assets/styles/components/CarouselItem.scss';
 
 import playIcon from '../assets/static/play-icon.png';
-import plusIcon from '../assets/static/plus-icon.png';
 
 const CarouselItem = (props) => {
 
-  const { title, releasedDate, posterPath } = props;
+  const { id, title, releasedDate, posterPath, plusMinorIcon, remove } = props;
 
-  const handleSetFavorite = () => {
-    props.setFavorite(
-      title, releasedDate, posterPath,
-    );
+  const handleFavorite = (id) => {
+
+    if (!remove) {
+      if (props.myList.length === 0 || (!props.myList.find((e) => e.id === id) && props.myList.length > 0)) {
+        props.setFavorite(
+          { id, title, releasedDate, posterPath },
+        );
+      } else {
+        console.log('Duplicated favorite movie');
+      }
+    } else {
+      props.deleteFavorite(id);
+    }
   };
 
   return (
@@ -27,9 +36,9 @@ const CarouselItem = (props) => {
             alt='Play_Icon'
           />
           <img
-            src={plusIcon}
+            src={plusMinorIcon}
             alt='Plus-Icon'
-            onClick={handleSetFavorite}
+            onClick={() => handleFavorite(id)}
           />
         </div>
         <p className='carousel-item__details--title'>{title}</p>
@@ -38,14 +47,23 @@ const CarouselItem = (props) => {
     </div>
   );
 };
+
 CarouselItem.propTypes = {
+  id: PropTypes.number,
   title: PropTypes.string,
   releasedDate: PropTypes.string,
   posterPath: PropTypes.string,
 };
 
 const mapDispatchToProps = {
-  setFavorite,
+  setFavorite, deleteFavorite,
 };
 
-export default connect(null, mapDispatchToProps)(CarouselItem);
+const mapStateToProps = (state) => {
+
+  return ({
+    myList: state.reducers.setFavorite.myList,
+  });
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarouselItem);

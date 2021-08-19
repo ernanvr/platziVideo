@@ -1,3 +1,5 @@
+@import '../Vars';
+
 .login {
   background: linear-gradient(#21c08b, #ab88ff);
   display: flex;
@@ -33,28 +35,6 @@
   align-items: center;
 }
 
-.login__container--remember-me {
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.login__container--remember-me > a {
-  color: white;
-  font-size: 1.4rem;
-  text-decoration: none;
-}
-
-.login__container--remember-me label span {
-  color: #e1f1dd;
-  font-size: 1.2rem;
-}
-
-.login__container--remember-me > a:hover {
-  text-decoration: underline;
-}
-
 .login__container--social-media {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -81,18 +61,40 @@
   margin-right: 10px;
 }
 
-.login__container--register {
-  font-size: 1.4rem;
+.login__container--remember-me {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.login__container--register a {
+.login__container--remember-me > a {
   color: white;
-  font-size: 1.6rem;
-  font-weight: bold;
+  font-size: 1.4rem;
   text-decoration: none;
 }
 
-.login__container--register a:hover {
+.login__container--remember-me label span {
+  color: #e1f1dd;
+  font-size: 1.2rem;
+}
+
+.login__container--register {
+  font-size: 1.4rem;
+
+  a {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.login__container--remember-me > a:hover {
   text-decoration: underline;
 }
 
@@ -104,12 +106,13 @@
   border-top: 0;
   border-right: 0;
   border-bottom: 2px solid white;
-  font-family: "Muli" sans-serif;
+  font-family: $theme-font;
   font-size: 1.6rem;
   margin-bottom: 20px;
   padding: 0 20px;
   outline: none;
   height: 40px;
+  width: 100%;
 }
 
 .input:focus {

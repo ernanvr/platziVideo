@@ -109,6 +109,7 @@ const mapStateToProps = (state) => {
     popularMovies: state.reducers.chargeData.popularMovies,
     topMovies: state.reducers.chargeData.topMovies,
     myList: state.reducers.setFavorite.myList,
+    user: state.reducers.loginUser.user,
   };
 };
 

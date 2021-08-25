@@ -5,6 +5,11 @@
 	align-items: center;
 	margin-bottom: 75px;
 	height: 100px;
+	width: 100%;
+}
+
+.search .isHome {
+	width: 50%;
 }
 
 .search__title {
@@ -22,7 +27,6 @@
 	font-size: 1.6rem;
 	height: 50px;
 	padding: 0 20px;
-	width: 50%;
 	outline: none;
 }
 

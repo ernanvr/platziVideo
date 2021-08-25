@@ -1,8 +1,12 @@
-header {
+.header {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 	height: 80px;
+}
+
+.isLogin, .isRegister {
+	background-color: #21c08b;
 }
 
 .header__img {
@@ -54,5 +58,6 @@ ul:hover {
 .material-icons {
 	width: 35px;
 	color: #f7f7ee;
+	border-radius: 20px;
 	filter: opacity(90%);
 }

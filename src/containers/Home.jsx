@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Category from '../components/Category';
+import Header from '../components/Header';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
 import Search from '../components/Search';
@@ -81,7 +82,8 @@ class Home extends Component {
     const { myList } = this.props;
     return (
       <>
-        <Search />
+        <Header />
+        <Search isHome />
         {myList.length > 0 && (
           <Category category='Mi lista'>
             <Carousel>

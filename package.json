@@ -8,7 +8,7 @@
 		"build": "webpack --config webpack.config.js",
 		"buildNetlify": "node ./scripts/create-env.js && webpack --config webpack.config.js",
 		"start": "webpack serve --config webpack.config.dev.js",
-		"start:dev": "node src/server/index"
+		"start:dev": "nodemon src/server/index"
 	},
 	"repository": {
 		"type": "git",
@@ -25,6 +25,7 @@
 		"@babel/core": "^7.14.8",
 		"@babel/preset-env": "^7.14.9",
 		"@babel/preset-react": "^7.14.5",
+		"@types/webpack-hot-middleware": "^2.25.5",
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.2.2",
 		"clean-webpack-plugin": "^4.0.0-alpha.0",
@@ -40,12 +41,14 @@
 		"html-webpack-plugin": "^5.3.2",
 		"mini-css-extract-plugin": "^2.1.0",
 		"node-sass": "^6.0.1",
+		"nodemon": "^2.0.12",
 		"sass-loader": "^12.1.0",
 		"style-loader": "^3.2.1",
 		"terser-webpack-plugin": "^5.1.4",
-		"webpack": "^5.48.0",
 		"webpack-cli": "^4.7.2",
-		"webpack-dev-server": "^3.11.2"
+		"webpack-dev-middleware": "^5.1.0",
+		"webpack-dev-server": "^3.11.2",
+		"webpack-hot-middleware": "^2.25.1"
 	},
 	"dependencies": {
 		"@babel/register": "^7.15.3",
@@ -56,10 +59,12 @@
 		"md5": "^2.3.0",
 		"prop-types": "^15.7.2",
 		"react": "^17.0.2",
+		"react-hot-loader": "^4.13.0",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.4",
 		"react-router-dom": "^5.2.0",
 		"redux": "^4.1.1",
-		"redux-thunk": "^2.3.0"
+		"redux-thunk": "^2.3.0",
+		"webpack": "^5.53.0"
 	}
 }

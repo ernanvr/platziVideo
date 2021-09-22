@@ -1,14 +1,13 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: ['./src/frontend/index', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'assets/app.js',
     publicPath: '/',
   },
 
@@ -60,21 +59,15 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: './index.html',
-      template: './public/index.html',
-    }),
+    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: 'assets/app.css',
     }),
     new Dotenv(),
-    new CleanWebpackPlugin(),
   ],
 
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 3006,
-    historyApiFallback: true,
+    port: 3000,
   },
 };

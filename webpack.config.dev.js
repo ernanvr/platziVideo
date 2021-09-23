@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: ['./src/frontend/index', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
+  entry: ['react-hot-loader/patch', './src/frontend/index', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'assets/app.js',
@@ -65,9 +65,4 @@ module.exports = {
     }),
     new Dotenv(),
   ],
-
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    port: 3000,
-  },
 };

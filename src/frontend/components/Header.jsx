@@ -64,7 +64,7 @@ const Header = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.reducers.loginUser.user,
+  user: state.loginUser.user,
 });
 
 const mapDispatchToProps = {

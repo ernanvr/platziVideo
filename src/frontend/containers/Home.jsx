@@ -87,18 +87,18 @@ class Home extends Component {
         {myList.length > 0 && (
           <Category category='Mi lista'>
             <Carousel>
-              { this.pushData('myList')}
+              {this.pushData('myList')}
             </Carousel>
           </Category>
         )}
         <Category category='Populares'>
           <Carousel>
-            { this.pushData('popularMovies')}
+            {this.pushData('popularMovies')}
           </Carousel>
         </Category>
         <Category category='Más Valoradas'>
           <Carousel>
-            { this.pushData('topRatedMovies') }
+            {this.pushData('topRatedMovies')}
           </Carousel>
         </Category>
       </>
@@ -108,10 +108,10 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    popularMovies: state.reducers.chargeData.popularMovies,
-    topMovies: state.reducers.chargeData.topMovies,
-    myList: state.reducers.setFavorite.myList,
-    user: state.reducers.loginUser.user,
+    popularMovies: state.chargeData.popularMovies,
+    topMovies: state.chargeData.topMovies,
+    myList: state.setFavorite.myList,
+    user: state.loginUser.user,
   };
 };
 

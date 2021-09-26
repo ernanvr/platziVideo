@@ -65,10 +65,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => {
-
-  return ({
-    myList: state.reducers.setFavorite.myList,
-  });
+  return ({ myList: state.setFavorite.myList });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarouselItem);

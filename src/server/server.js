@@ -8,14 +8,18 @@ import { StaticRouter } from 'react-router-dom';
 import express from 'express';
 import { webpack } from 'webpack';
 import dotenv from 'dotenv';
-import https from 'https';
-import appState from '../frontend/reducers/index';
-import { APIPopular, APITopRated, APIKey } from '../frontend/utils/Vars';
+import { APIPopular, APITopRated } from '../frontend/utils/Vars';
+import fetch from './initialStateBackend';
 
+//Configuring Environment Vars
 dotenv.config();
 
 const { ENV, PORT } = process.env;
 const app = express();
+
+//Charging middleware
+
+console.log(initialState.chargeData);
 
 if (ENV === 'development') {
   console.log('Development configuration');
@@ -28,28 +32,10 @@ if (ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-const url = [APIPopular, APITopRated];
-const data = [];
-
-for (let i = 0, len = url.length; i < len; i++) {
-  https.get(url[i], (resp) => {
-    let dataResult = '';
-
-    resp.on('data', (chunk) => {
-      dataResult += chunk;
-    });
-
-    resp.on('end', () => {
-      data[i] = JSON.parse(dataResult);
-    });
-
-    //resp.on('error', (err) => {
-    //console.log(`Error ${err.message}`);
-    //});
-  });
-}
+fetch([APIPopular, APITopRated], process.env.APIKey);
 
 app.get('*', (req, res) => {
+  console.log('GET request');
   res.send(
     '<!DOCTYPE html>' +
 			'<html lang="en">' +

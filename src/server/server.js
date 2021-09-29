@@ -8,8 +8,9 @@ import { StaticRouter } from 'react-router-dom';
 import express from 'express';
 import { webpack } from 'webpack';
 import dotenv from 'dotenv';
+import appState from '../frontend/reducers';
 import { APIPopular, APITopRated } from '../frontend/utils/Vars';
-import fetch from './initialStateBackend';
+import fetchState from './stateFetchingFunc';
 
 //Configuring Environment Vars
 dotenv.config();
@@ -18,8 +19,6 @@ const { ENV, PORT } = process.env;
 const app = express();
 
 //Charging middleware
-
-console.log(initialState.chargeData);
 
 if (ENV === 'development') {
   console.log('Development configuration');
@@ -32,7 +31,19 @@ if (ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-fetch([APIPopular, APITopRated], process.env.APIKey);
+const initialState = fetchState({
+  chargeData: {
+    popularMovies: APIPopular + process.env.APIKey,
+    topMovies: APITopRated + process.env.APIKey,
+  },
+  setFavorite: {
+    myList: '',
+  },
+  loginUser: {
+    user: '',
+  },
+  playing: '',
+});
 
 app.get('*', (req, res) => {
   console.log('GET request');

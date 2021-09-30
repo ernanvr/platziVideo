@@ -30,7 +30,7 @@ function fetchState(state) {
           });
 
           resp.on('end', () => {
-            initialState[reducers[i]] = data;
+            initialState[reducers[i]] = JSON.parse(data).results;
 
             return initialState;
           });
@@ -63,7 +63,7 @@ function fetchState(state) {
             });
 
             resp.on('end', () => {
-              initialState[reducers[i]][reducer[j]] = data;
+              initialState[reducers[i]][reducer[j]] = JSON.parse(data).results;
 
               return initialState;
             });

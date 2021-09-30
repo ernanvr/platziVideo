@@ -1,13 +1,15 @@
 /* eslint-disable no-tabs */
 /* eslint-disable global-require */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import { createStore, compose } from 'redux';
+import { createStore } from 'redux';
 import { StaticRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import express from 'express';
 import { webpack } from 'webpack';
 import dotenv from 'dotenv';
+import serverRoutes from '../frontend/routes/serverRoutes';
 import appState from '../frontend/reducers';
 import { APIPopular, APITopRated } from '../frontend/utils/Vars';
 import fetchState from './stateFetchingFunc';
@@ -45,9 +47,8 @@ const initialState = fetchState({
   playing: '',
 });
 
-app.get('*', (req, res) => {
-  console.log('GET request');
-  res.send(
+const setResponse = (html) => {
+  return (
     '<!DOCTYPE html>' +
 			'<html lang="en">' +
 			'<head>' +
@@ -65,12 +66,28 @@ app.get('*', (req, res) => {
 				'<title>Platzi Video</title>' +
 			`</head>
 				<body>
-					<div id="App"></div>
+					<div id="App">${html}</div>
 					<script src="assets/app.js" type="application/javascript"></script>
 				</body>
-			</html>`,
+			</html>`
   );
-});
+};
+
+const renderApp = (req, res) => {
+  console.log(initialState);
+  const store = createStore(appState, initialState);
+  const html = renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={{}}>
+        {renderRoutes(serverRoutes)}
+      </StaticRouter>
+    </Provider>,
+  );
+
+  res.send(setResponse(html));
+};
+
+app.get('*', renderApp);
 
 app.listen(PORT, (err) => {
   if (err) {

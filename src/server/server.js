@@ -9,7 +9,6 @@ import { renderRoutes } from 'react-router-config';
 import express from 'express';
 import { webpack } from 'webpack';
 import dotenv from 'dotenv';
-import os from 'os';
 import serverRoutes from '../frontend/routes/serverRoutes';
 import appState from '../frontend/reducers';
 import { APIPopular, APITopRated } from '../frontend/utils/Vars';
@@ -89,9 +88,8 @@ const renderApp = (req, res) => {
 
 app.get('*', renderApp);
 
-console.log(os.networkInterfaces());
-
 app.listen(PORT, (err) => {
+
   if (err) {
     console.error(err);
   } else {

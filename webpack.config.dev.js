@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'assets/app.js',
     publicPath: '/',
+    assetModuleFilename: 'assets/images/[hash][ext]',
   },
 
   mode: 'development',
@@ -50,9 +51,6 @@ module.exports = {
       {
         test: /\.png$/,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/[hash].[ext]',
-        },
       },
 
     ],

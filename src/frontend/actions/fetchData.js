@@ -18,6 +18,7 @@ const fetchData = () => async (dispatch) => {
       topMovies: results[1].data.results,
     },
   });
+
 };
 
 export default { fetchData };

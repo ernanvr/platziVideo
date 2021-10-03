@@ -8,25 +8,15 @@ import reduxThunk from 'redux-thunk';
 import appState from './reducers';
 import App from './routes/App';
 
-const initialState = {
-  chargeData: {
-    popularMovies: [],
-    topMovies: [],
-  },
-  setFavorite: {
-    myList: [],
-  },
-  loginUser: {
-    user: [],
-  },
-  playing: {},
-};
-
+const preloadedState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
 const history = createBrowserHistory();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(appState, initialState, composeEnhancer(applyMiddleware(reduxThunk)));
+const store = createStore(appState, preloadedState, composeEnhancer(applyMiddleware(reduxThunk)));
 
-ReactDOM.render(
+const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
+
+renderMethod(
   <Provider store={store}>
     <Router history={history}>
       <App />

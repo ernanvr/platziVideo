@@ -1,21 +1,28 @@
-const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+require('dotenv').config();
+
+const isDev = (process.env.ENV === 'development');
+const entry = ['./src/frontend/index'];
+
+if (isDev) {
+  entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true');
+  entry.unshift('react-hot-loader/patch');
+}
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/frontend/index'),
+  entry,
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'src/server/public'),
+    filename: 'assets/app.js',
     publicPath: '/',
+    assetModuleFilename: 'assets/images/[hash][ext]',
   },
 
-  mode: 'production',
+  mode: process.env.ENV,
 
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -54,32 +61,16 @@ module.exports = {
       {
         test: /\.png$/,
         type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/[hash].[ext]',
-        },
       },
 
     ],
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      filename: './index.html',
-      template: './public/index.html',
-    }),
+    isDev ? new webpack.HotModuleReplacementPlugin() : () => {},
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: 'assets/app.css',
     }),
     new Dotenv(),
-    new CleanWebpackPlugin(),
   ],
-
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin(),
-    ],
-  },
 };

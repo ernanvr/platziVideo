@@ -5,10 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "webpack --config webpack.config.js",
+		"build": "cross-env ENV=production PORT=3001 webpack-cli --config webpack.config.js",
 		"buildNetlify": "node ./scripts/create-env.js && webpack --config webpack.config.js",
-		"start": "webpack serve --config webpack.config.dev.js",
-		"start:dev": "nodemon src/server/index.js --ignore src/frontend/*"
+		"start:dev": "cross-env ENV=development PORT=3000 nodemon src/server/index.js --ignore src/frontend/*"
 	},
 	"repository": {
 		"type": "git",
@@ -60,6 +59,7 @@
 		"classnames": "^2.3.1",
 		"dotenv": "^10.0.0",
 		"express": "^4.17.1",
+		"helmet": "^4.6.0",
 		"history": "^5.0.1",
 		"ignore-styles": "^5.0.1",
 		"md5": "^2.3.0",

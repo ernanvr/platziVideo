@@ -5,17 +5,12 @@ import Header from '../components/Header';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
 import Search from '../components/Search';
-import homeActions from '../actions/fetchData';
-import { IMGPathBase } from '../utils/Vars'; import '../assets/styles/style.scss';
+import { IMGPathBase } from '../utils/Vars';
+import '../assets/styles/style.scss';
 import removeIcon from '../assets/static/remove-icon.png';
 import plusIcon from '../assets/static/plus-icon.png';
 
 class Home extends Component {
-
-  componentDidMount() {
-    const { fetchData } = this.props;
-    fetchData();
-  }
 
   pushData(typeMovieToShow) {
 
@@ -115,4 +110,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, homeActions)(Home);
+export default connect(mapStateToProps)(Home);

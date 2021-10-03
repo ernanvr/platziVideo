@@ -80,7 +80,7 @@ function fetchState(state) {
         }
 
       } else {
-        initialState[reducers[i]][reducer[j]] = {};
+        initialState[reducers[i]][reducer[j]] = [];
       }
 
     }

@@ -14,6 +14,7 @@ import serverRoutes from '../frontend/routes/serverRoutes';
 import appState from '../frontend/reducers';
 import { APIPopular, APITopRated } from '../frontend/utils/Vars';
 import fetchState from './stateFetchingFunc';
+import getManifest from './getManifest';
 
 //Configuring Environment Vars
 dotenv.config();
@@ -33,6 +34,12 @@ if (ENV === 'development') {
   app.use(webpackDevMiddleware(compiler, { publicPath: webpackConfig.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 } else {
+  app.use((req, res, next) => {
+    if (!req.hashManifest) {
+      req.hashManifest = getManifest();
+    }
+    next();
+  });
   app.use(express.static(`${__dirname}/public`));
   app.use(helmet());
   app.use(helmet.permittedCrossDomainPolicies());
@@ -42,8 +49,7 @@ if (ENV === 'development') {
       'img-src': ["'self'", 'https://image.tmdb.org'],
       'script-src': [
         "'self'",
-        "'sha256-uulKwzkGi5fodj0AB03qg3pOLGjZf4S9bMfBwFJSz/k='",
-        "'sha256-5szVvYVG/ApgdwJY5gIRtwSrKx1kvDIY53uE1OFrw9U='",
+        "'unsafe-inline'",
       ],
       'style-src-elem': ["'self'", 'https://fonts.googleapis.com'],
       'font-src': ["'self'", 'https://fonts.gstatic.com/'],
@@ -68,7 +74,11 @@ const initialState = fetchState({
   playing: '',
 });
 
-const setResponse = (html, preloadedState) => {
+const setResponse = (html, preloadedState, manifest) => {
+  const mainStyle = manifest ? manifest['vendors.css'] : 'assets/app.css';
+  const mainBuild = manifest ? manifest['main.js'] : 'assets/app.js';
+  const vendorBuild = manifest ? manifest['vendors.js'] : 'assets/vendor.js';
+
   return (
     '<!DOCTYPE html>' +
 			'<html lang="en">' +
@@ -78,7 +88,7 @@ const setResponse = (html, preloadedState) => {
 				'<meta name="viewport" content="width=device-width, initial-scale=1.0" />' +
 				`<link
 					rel="stylesheet"
-					href="assets/app.css"
+					href="${mainStyle}"
 					type="text/css"
 					media="screen"
 					title="no title"
@@ -91,7 +101,8 @@ const setResponse = (html, preloadedState) => {
           <script>
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-					<script src="assets/app.js" type="application/javascript"></script>
+					<script src="${mainBuild}" type="application/javascript"></script>
+					<script src="${vendorBuild}" type="application/javascript"></script>
 				</body>
 			</html>`
   );
@@ -109,7 +120,7 @@ const renderApp = (req, res) => {
 
   const preloadedState = store.getState();
 
-  res.send(setResponse(html, preloadedState));
+  res.send(setResponse(html, preloadedState, req.hashManifest));
 };
 
 app.get('*', renderApp);

@@ -1,8 +1,4 @@
-const INITIAL_STATE = {
-  playing: {},
-};
-
-function playing(state = INITIAL_STATE, action) {
+function playing(state = {}, action) {
   switch (action.type) {
     case 'LOAD_SOURCE_VIDEO':
       return {

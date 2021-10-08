@@ -1,8 +1,6 @@
-const INITIAL_STATE = {
-  myList: [],
-};
 
-function setFavorite(state = INITIAL_STATE, action) {
+function setFavorite(state = { myList: [] }, action) {
+
   switch (action.type) {
     case 'SET_FAVORITE':
       return {
@@ -23,3 +21,4 @@ function setFavorite(state = INITIAL_STATE, action) {
 }
 
 export default setFavorite;
+

@@ -5,17 +5,12 @@ import Header from '../components/Header';
 import Carousel from '../components/Carousel';
 import CarouselItem from '../components/CarouselItem';
 import Search from '../components/Search';
-import homeActions from '../actions/fetchData';
-import { IMGPathBase } from '../utils/Vars'; import '../assets/styles/style.scss';
+import { IMGPathBase } from '../utils/Vars';
+import '../assets/styles/style.scss';
 import removeIcon from '../assets/static/remove-icon.png';
 import plusIcon from '../assets/static/plus-icon.png';
 
 class Home extends Component {
-
-  componentDidMount() {
-    const { fetchData } = this.props;
-    fetchData();
-  }
 
   pushData(typeMovieToShow) {
 
@@ -87,18 +82,18 @@ class Home extends Component {
         {myList.length > 0 && (
           <Category category='Mi lista'>
             <Carousel>
-              { this.pushData('myList')}
+              {this.pushData('myList')}
             </Carousel>
           </Category>
         )}
         <Category category='Populares'>
           <Carousel>
-            { this.pushData('popularMovies')}
+            {this.pushData('popularMovies')}
           </Carousel>
         </Category>
         <Category category='Más Valoradas'>
           <Carousel>
-            { this.pushData('topRatedMovies') }
+            {this.pushData('topRatedMovies')}
           </Carousel>
         </Category>
       </>
@@ -108,11 +103,11 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    popularMovies: state.reducers.chargeData.popularMovies,
-    topMovies: state.reducers.chargeData.topMovies,
-    myList: state.reducers.setFavorite.myList,
-    user: state.reducers.loginUser.user,
+    popularMovies: state.chargeData.popularMovies,
+    topMovies: state.chargeData.topMovies,
+    myList: state.setFavorite.myList,
+    user: state.loginUser.user,
   };
 };
 
-export default connect(mapStateToProps, homeActions)(Home);
+export default connect(mapStateToProps)(Home);

@@ -36,7 +36,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => {
   return {
-    playing: state.reducers.playing,
+    playing: state.playing,
   };
 };
 

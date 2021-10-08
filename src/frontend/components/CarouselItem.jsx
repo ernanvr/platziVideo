@@ -13,7 +13,6 @@ const CarouselItem = (props) => {
   const { id, title, releasedDate, posterPath, plusMinorIcon, remove } = props;
 
   const handleFavorite = (id) => {
-
     if (!remove) {
       if (props.myList.length === 0 || (!props.myList.find((e) => e.id === id) && props.myList.length > 0)) {
         props.setFavorite(
@@ -65,10 +64,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => {
-
-  return ({
-    myList: state.reducers.setFavorite.myList,
-  });
+  return ({ myList: state.setFavorite.myList });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarouselItem);

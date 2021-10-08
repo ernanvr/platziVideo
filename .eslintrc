@@ -21,6 +21,7 @@
 	"plugins": ["react", "jsx-a11y", "import"],
 	"rules": {
 		"react/jsx-filename-extension": 0,
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
 		"array-bracket-spacing": 2,
 		"arrow-body-style": 0,
 		"block-scoped-var": 2,
